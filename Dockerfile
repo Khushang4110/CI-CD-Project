@@ -15,7 +15,7 @@ FROM openjdk:11-jdk-slim as runtime
 VOLUME /tmp
 
 # Create a non-root user
-RUN addgroup --system javauser && adduser -S -s /bin/false -G javauser javauser
+RUN groupadd -r javauser && useradd -r -g javauser -s /bin/false javauser
 
 WORKDIR /app
 COPY --from=build /app/app.jar .
