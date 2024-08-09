@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM maven:3.8.5-openjdk-11 as build
+FROM openjdk:11-jdk-slim as build
 WORKDIR /app
 
 COPY mvnw .
@@ -15,7 +15,7 @@ FROM openjdk:11-jdk-slim as runtime
 VOLUME /tmp
 
 # Create a non-root user
-RUN groupadd -r javauser && useradd -r -g javauser -s /bin/false javauser
+RUN addgroup --system javauser && adduser -S -s /bin/false -G javauser javauser
 
 WORKDIR /app
 COPY --from=build /app/app.jar .
