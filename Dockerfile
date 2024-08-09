@@ -12,7 +12,7 @@ RUN curl -s https://repo.maven.apache.org/maven2/ > /dev/null || (echo "Network 
 RUN ./mvnw package
 COPY target/*.jar app.jar
 
-FROM openjdk:11-jdk-slim as build
+FROM openjdk:11-jdk-slim as runtime
 VOLUME /tmp
 RUN addgroup --system javauser && adduser -S -s /bin/false -G javauser javauser
 WORKDIR /app
